@@ -1,6 +1,9 @@
 package com.kianpas.book.springservice.service.posts;
 
+import com.kianpas.book.springservice.domain.posts.Posts;
 import com.kianpas.book.springservice.domain.posts.PostsRepository;
+import com.kianpas.book.springservice.web.dto.PostResponseDto;
+import com.kianpas.book.springservice.web.dto.PostUpdateRequestDto;
 import com.kianpas.book.springservice.web.dto.PostsSaveRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,7 +16,26 @@ public class PostsService {
     private final PostsRepository postsRepository;
 
     @Transactional
-    public Long save(PostsSaveRequestDto requestDto){
+    public Long save(PostsSaveRequestDto requestDto) {
         return postsRepository.save(requestDto.toEntity()).getId();
     }
+
+    @Transactional
+    public Long update(Long id, PostUpdateRequestDto requestDto) {
+        //리포지토리에서 아이디로 찾고
+        Posts posts = postsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
+        //가져온 post를 리포지토리 업데이트로 수정
+        posts.update(requestDto.getTitle(), requestDto.getContent());
+
+        return id;
+    }
+
+    public PostResponseDto findById(Long id) {
+        //아이디로 찾고 리스폰스 객체 생성
+        Posts entity = postsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
+
+        return new PostResponseDto(entity);
+    }
+
+
 }
