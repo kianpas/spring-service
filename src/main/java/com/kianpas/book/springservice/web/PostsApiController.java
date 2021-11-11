@@ -2,7 +2,7 @@ package com.kianpas.book.springservice.web;
 
 import com.kianpas.book.springservice.service.posts.PostsService;
 import com.kianpas.book.springservice.web.dto.PostResponseDto;
-import com.kianpas.book.springservice.web.dto.PostUpdateRequestDto;
+import com.kianpas.book.springservice.web.dto.PostsUpdateRequestDto;
 import com.kianpas.book.springservice.web.dto.PostsSaveRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +19,7 @@ public class PostsApiController {
     }
 
     @PutMapping("/api/v1/posts/{id}")
-    public Long update(@PathVariable Long id, @RequestBody PostUpdateRequestDto requestDto) {
+    public Long update(@PathVariable Long id, @RequestBody PostsUpdateRequestDto requestDto) {
         return postsService.update(id, requestDto);
 
     }

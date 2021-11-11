@@ -3,7 +3,7 @@ package com.kianpas.book.springservice.service.posts;
 import com.kianpas.book.springservice.domain.posts.Posts;
 import com.kianpas.book.springservice.domain.posts.PostsRepository;
 import com.kianpas.book.springservice.web.dto.PostResponseDto;
-import com.kianpas.book.springservice.web.dto.PostUpdateRequestDto;
+import com.kianpas.book.springservice.web.dto.PostsUpdateRequestDto;
 import com.kianpas.book.springservice.web.dto.PostsSaveRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ public class PostsService {
     }
 
     @Transactional
-    public Long update(Long id, PostUpdateRequestDto requestDto) {
+    public Long update(Long id, PostsUpdateRequestDto requestDto) {
         //리포지토리에서 아이디로 찾고
         Posts posts = postsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
         //가져온 post를 리포지토리 업데이트로 수정
