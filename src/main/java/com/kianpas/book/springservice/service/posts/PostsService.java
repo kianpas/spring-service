@@ -3,11 +3,15 @@ package com.kianpas.book.springservice.service.posts;
 import com.kianpas.book.springservice.domain.posts.Posts;
 import com.kianpas.book.springservice.domain.posts.PostsRepository;
 import com.kianpas.book.springservice.web.dto.PostResponseDto;
+import com.kianpas.book.springservice.web.dto.PostsListResponseDto;
 import com.kianpas.book.springservice.web.dto.PostsUpdateRequestDto;
 import com.kianpas.book.springservice.web.dto.PostsSaveRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -37,5 +41,8 @@ public class PostsService {
         return new PostResponseDto(entity);
     }
 
-
+    @Transactional(readOnly = true)
+    public List<PostsListResponseDto> findAllDesc(){
+        return postsRepository.findAllDesc().stream().map(PostsListResponseDto::new).collect(Collectors.toList());
+    }
 }
