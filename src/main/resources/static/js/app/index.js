@@ -59,7 +59,7 @@ var main = {
             url:"/api/v1/posts/"+id,
             dataType:"json",
             contentType: "application/json; charset=utf-8",
-        }).done(()=>{
+        }).done(() => {
             alert("글이 삭제되었습니다.");
             window.location.href="/";
         }).fail((error) => {
