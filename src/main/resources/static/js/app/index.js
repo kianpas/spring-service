@@ -4,6 +4,12 @@ var main = {
             $("#btn-save").on("click", () => {
                 _this.save();
             });
+            $("#btn-update").on("click", () => {
+               _this.update();
+            });
+            $("#btn-delete").on("click", () => {
+               _this.delete();
+            });
         },
     save : () => {
         const data = {
@@ -25,6 +31,40 @@ var main = {
         }).fail((error) => {
              alert(JSON.stringify(error));
         });
+    },
+    update : () => {
+        const id = $("#id").val();
+        const data = {
+             title : $("#title").val(),
+             content : $("#content").val(),
+        };
+
+        $.ajax({
+            type:"put",
+            url:"/api/v1/posts/"+id,
+            data:JSON.stringify(data),
+            dataType:"json",
+            contentType: "application/json; charset=utf-8",
+        }).done(()=>{
+            alert("글이 수정되었습니다.");
+            window.location.href="/";
+        }).fail((error) => {
+            alert(JSON.stringify(error));
+        })
+    },
+    delete : () => {
+        const id = $("#id").val();
+        $.ajax({
+            type:"delete",
+            url:"/api/v1/posts/"+id,
+            dataType:"json",
+            contentType: "application/json; charset=utf-8",
+        }).done(()=>{
+            alert("글이 삭제되었습니다.");
+            window.location.href="/";
+        }).fail((error) => {
+            alert(JSON.stringify(error));
+        })
     }
 }
 

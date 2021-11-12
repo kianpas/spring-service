@@ -18,12 +18,15 @@ import java.util.stream.Collectors;
 public class PostsService {
 
     private final PostsRepository postsRepository;
-
+    
+    //입력
     @Transactional
     public Long save(PostsSaveRequestDto requestDto) {
         return postsRepository.save(requestDto.toEntity()).getId();
     }
 
+    
+    //수정
     @Transactional
     public Long update(Long id, PostsUpdateRequestDto requestDto) {
         //리포지토리에서 아이디로 찾고
@@ -34,6 +37,7 @@ public class PostsService {
         return id;
     }
 
+    //
     public PostResponseDto findById(Long id) {
         //아이디로 찾고 리스폰스 객체 생성
         Posts entity = postsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
@@ -41,8 +45,16 @@ public class PostsService {
         return new PostResponseDto(entity);
     }
 
+    //조회 후 리스트
     @Transactional(readOnly = true)
     public List<PostsListResponseDto> findAllDesc(){
         return postsRepository.findAllDesc().stream().map(PostsListResponseDto::new).collect(Collectors.toList());
+    }
+
+    //삭제
+    @Transactional
+    public void delete(Long id) {
+        Posts posts = postsRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
+        postsRepository.delete(posts);
     }
 }
