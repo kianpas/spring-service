@@ -42,6 +42,7 @@ deploy:
     key : spring-service.zip # 빌드파일을 압축
     bundle_type : zip #압축 확장자
     application : spring-service #codedeploy 애플리케이션 이름
+    deployment_group : spring-service-group #codedeploy 배포 그룹 이름
     region: ap-northeast-2
     #wait_until_deployed: true
 
