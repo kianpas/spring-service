@@ -18,7 +18,7 @@ before_install:
 script: "./gradlew clean build"
 
 before_deploy:
-  - zip -r spring-service
+  - zip -r spring-service *
   - mkdir - p deploy
   - mv spring-service.zip deploy/spring-service.zip
 
