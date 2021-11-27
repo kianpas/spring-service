@@ -26,24 +26,24 @@ deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY # TRAVIS repo 설정된 값
     secret_access_key: $AWS_SECRET_KEY # TRAVIS repo 에 설정된 값
-    bucket: springboot-project-build # s3버킷
+    bucket: spring-service-build # s3버킷
     region: ap-northeast-2
     skip_cleanup: true
     acl: private #zip 파일 접근 private
     local_dir: deploy # before_deploy 에서 지정한 값
     #wait_until_deployed: true
 
-  - provider: codedeploy
-    on :
-      all_branches: true
-    access_key_id: $AWS_ACCESS_KEY # TRAVIS repo 설정된 값
-    secret_access_key: $AWS_SECRET_KEY # TRAVIS repo 에 설정된 값
-    bucket: spring-service-build # s3버킷
-    key : spring-service.zip # 빌드파일을 압축
-    bundle_type : zip #압축 확장자
-    application : spring-service #codedeploy 애플리케이션 이름
-    region: ap-northeast-2
-    #wait_until_deployed: true
+#  - provider: codedeploy
+#    on :
+#      all_branches: true
+#    access_key_id: $AWS_ACCESS_KEY # TRAVIS repo 설정된 값
+#    secret_access_key: $AWS_SECRET_KEY # TRAVIS repo 에 설정된 값
+#    bucket: spring-service-build # s3버킷
+#    key : spring-service.zip # 빌드파일을 압축
+#    bundle_type : zip #압축 확장자
+#    application : spring-service #codedeploy 애플리케이션 이름
+#    region: ap-northeast-2
+#    #wait_until_deployed: true
 
 
 #CI 실행 완료 시 메일로 알람
